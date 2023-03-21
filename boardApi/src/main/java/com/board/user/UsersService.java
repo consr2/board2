@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -56,12 +57,13 @@ public class UsersService {
 	}
 	
 	//로그인
-	public String login(UsersForm usersForm, HttpSession session) {
+	public String login(UsersForm usersForm, HttpServletRequest request) {
 		Optional<Users> ouser = usersRepository.findByName(usersForm.getName());
 		if(ouser.isPresent()) {
 			String pw1 = ouser.get().getPassword();
 			String pw2 = passwordEncode(usersForm.getPassword());
 			if(pw1.equals(pw2)) {
+				HttpSession session = request.getSession();
 				session.setAttribute("name", usersForm.getName());
 				session.setAttribute("auth", ouser.get().getRole().value());
 				return "로그인 성공";
@@ -74,9 +76,10 @@ public class UsersService {
 	}
 
 	//로그아웃
-	public String logout(HttpSession session) {
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
 		session.invalidate();
-		return "로그아웃 (세선삭제)";
+		return "로그아웃 (세선삭제) 세션없는데 실행시 오류";
 	}
 
 }

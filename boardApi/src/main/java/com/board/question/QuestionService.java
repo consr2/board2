@@ -15,6 +15,7 @@ import com.board.result.Result;
 import com.board.user.Users;
 import com.board.user.UsersRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -27,8 +28,8 @@ public class QuestionService {
 	private final LikesRepository likesRepository;
 	
 	//글 작성
-	public Long createQuestion(QuestionForm questionForm, HttpSession session) {
-		String name = (String) session.getAttribute("name");
+	public Long createQuestion(QuestionForm questionForm, HttpServletRequest request) {
+		String name = (String) request.getAttribute("name");
 		Users user = usersRepository.findByName(name).get();
 		
 		Question q = new Question(questionForm, user);
@@ -36,15 +37,17 @@ public class QuestionService {
 	}
 
 	//글목록 리턴
-	public Result getQuestionList(int page) {
+	public Result getQuestionList(int page, HttpServletRequest request) {
 		Pageable pageable = PageRequest.of(page, 5, Direction.DESC, "id");
 		List<QuestionDto> collect = questionRepository.findAll(pageable)
-				.stream().map(QuestionDto::new).collect(Collectors.toList());
+				.stream().map(m -> new QuestionDto(m, request.getAttribute("name").toString()))
+				.collect(Collectors.toList());
+		
 		return new Result<>(collect.size(), collect);
 	}
 
-	public String addLike(Long id, HttpSession session) {
-		String name = (String) session.getAttribute("name");
+	public String addLike(Long id, HttpServletRequest request) {
+		String name = (String) request.getAttribute("name");
 		Question question = questionRepository.findById(id).get();
 		Optional<Likes> olike = likesRepository.findByUsernameAndQuestion(name, question);
 		if(olike.isEmpty()) {

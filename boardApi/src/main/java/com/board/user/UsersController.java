@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -19,13 +20,13 @@ public class UsersController {
 	}
 	
 	@GetMapping("/api/v1/login")
-	public String login(UsersForm usersForm, HttpSession session) {
-		return usersService.login(usersForm, session);
+	public String login(UsersForm usersForm, HttpServletRequest request) {
+		return usersService.login(usersForm, request);
 	}
 	
 	@GetMapping("/api/v1/logout")
-	public String logout(HttpSession session) {
-		return usersService.logout(session);
+	public String logout(HttpServletRequest request) {
+		return usersService.logout(request);
 	}
 	
 	@GetMapping("/api/v1/auth")
