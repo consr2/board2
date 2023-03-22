@@ -1,5 +1,9 @@
 package com.board.result;
 
+import java.util.List;
+
+import com.board.question.QuestionDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

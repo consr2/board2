@@ -1,7 +1,10 @@
 package com.board.intercepter;
 
-import org.hibernate.grammars.hql.HqlParser.IsEmptyPredicateContext;
-import org.springframework.stereotype.Component;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.context.annotation.Bean;
 
 import com.board.user.Role;
 
@@ -10,22 +13,48 @@ import jakarta.servlet.http.HttpSession;
 
 public class IntercepterCheck {
 
-	public boolean sessionNullCheck(HttpServletRequest request) {
+	private List<Pathinfo> list = new ArrayList<>();
+	
+	//url 등록
+	public IntercepterCheck(){
+		this.list.add(new Pathinfo("/api/v1/question","POST"
+				,new ArrayList<String>(Arrays.asList("ROLE_USER","ROLE_ADMIN"))));
+	}
+
+	//등록된 url 인지 체크
+	public boolean urlcheck(HttpServletRequest request,String auth) {
+		
+		String method = request.getMethod();
+		String url = request.getRequestURI().toString();
+		
+		for(Pathinfo p : list) {
+			//경로+method체크
+			if(p.equals(new Pathinfo(url,method))) {
+				//권한 체크
+				if(p.getauth().contains(auth)) {
+					return true;
+				}else {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	//로그인 체크(없으면 게스트)
+	public String sessionCheck(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		
 		if(session == null) {
-			return false;
+			request.setAttribute("auth", Role.ROLE_GUEST.value());
+			request.setAttribute("name", "Guest");
+			return "ROLE_GUEST";
 		}else {
-			return true;
+			String auth = session.getAttribute("auth").toString();
+			request.setAttribute("auth", Role.valueOf(auth));
+			request.setAttribute("name", session.getAttribute("name"));
+			return auth;
 		}
 	}
-	
-	
-	public boolean methodCheck(String method1, String method2) {
-		if(method1.equals(method2)) {
-			return true;
-		}else {
-			return false;
-		}
-	}
+
 }
