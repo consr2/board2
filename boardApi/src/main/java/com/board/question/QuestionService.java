@@ -39,7 +39,7 @@ public class QuestionService {
 	//글목록 리턴
 	public Result getQuestionList(int page, HttpServletRequest request) {
 		Pageable pageable = PageRequest.of(page, 5, Direction.DESC, "id");
-		List<QuestionDto> collect = questionRepository.findAll(pageable)
+		List<QuestionDto> collect = questionRepository.allListPage(pageable)
 				.stream().map(m -> new QuestionDto(m, request.getAttribute("name").toString()))
 				.collect(Collectors.toList());
 		

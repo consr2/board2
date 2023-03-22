@@ -19,13 +19,15 @@ public class IntercepterCheck {
 	public IntercepterCheck(){
 		this.list.add(new Pathinfo("/api/v1/question","POST"
 				,new ArrayList<String>(Arrays.asList("ROLE_USER","ROLE_ADMIN"))));
+		this.list.add(new Pathinfo("/api/v1/question/like/**","POST"
+				,new ArrayList<String>(Arrays.asList("ROLE_USER","ROLE_ADMIN"))));
 	}
 
 	//등록된 url 인지 체크
 	public boolean urlcheck(HttpServletRequest request,String auth) {
 		
 		String method = request.getMethod();
-		String url = request.getRequestURI().toString();
+		String url = request.getRequestURI().toString().replaceAll("[0-9]{1,}$", "**");
 		
 		for(Pathinfo p : list) {
 			//경로+method체크
