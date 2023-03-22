@@ -5,17 +5,17 @@ import java.util.Objects;
 
 public class Pathinfo {
 
-	private String startURL;
+	private String url;
 	private String method;
 	private List<String> auth;
 	
 	public Pathinfo (String url, String method) {
-		this.startURL = url;
+		this.url = url;
 		this.method = method;
 	}
 	
 	public Pathinfo (String url, String method, List<String> auth) {
-		this.startURL = url;
+		this.url = url;
 		this.method = method;
 		this.auth = auth;
 	}
@@ -33,16 +33,7 @@ public class Pathinfo {
 		if (getClass() != obj.getClass())
 			return false;
 		Pathinfo other = (Pathinfo) obj;
-		return Objects.equals(method, other.method) && Objects.equals(startURL, other.startURL);
+		return Objects.equals(method, other.method) && Objects.equals(url, other.url);
 	}
-
-
-	@Override
-	public String toString() {
-		return "Pathinfo [startURL=" + startURL + ", method=" + method + ", auth=" + auth + "]";
-	}
-
-
-
 	
 }
