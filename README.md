@@ -10,10 +10,11 @@
 <h4>기능</h4>  
 <h5>회원가입  localhost:80/api/v1/user?name=user3&password=1234 (post) </h5> 
 <h5>로그인  localhost:80/api/v1/login?name=user2&password=1234  (get) </h5> 
-<h5>로그아웃  localhost:80/api/v1/logout(get)  </h5>
+<h5>로그아웃  localhost:80/api/v1/logout                        (get)  </h5>
 <h5>게시글 작성  localhost:80/api/v1/question?title=제목7&content=내용 (post)  </h5>
-<h5>게시글 조회  localhost:80/api/v1/question?page=0 (get)  </h5>
-<h5>추천  localhost:80/api/v1/question/like/{id} (post)  </h5>
+<h5>게시글 조회  localhost:80/api/v1/question?page=0             (get)  </h5>
+<h5>추천  localhost:80/api/v1/question/like/{id}                (post)  </h5>
+<h5>게시글 삭제  localhost:80/api/v1/question/{id}               (delete)  </h5>
 
 -----------------------------------------------  
 # 3-21일지  
