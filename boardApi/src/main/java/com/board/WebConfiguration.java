@@ -5,21 +5,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.board.intercepter.Intercepter;
 import com.board.intercepter.IntercepterCheck;
-import com.board.intercepter.QuestionIntercepter;
 
 @Configuration
 public class WebConfiguration implements WebMvcConfigurer{
 
 	@Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(questionIntercepter())
+        registry.addInterceptor(intercepter())
                 .addPathPatterns("/api/v1/question/**");
     }
 	
 	@Bean
-	public QuestionIntercepter questionIntercepter() {
-		return new QuestionIntercepter();
+	public Intercepter intercepter() {
+		return new Intercepter();
 	}
 	
 	@Bean

@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 
-public class QuestionIntercepter implements HandlerInterceptor{
+public class Intercepter implements HandlerInterceptor{
 
 	@Autowired
 	private IntercepterCheck intercepterCheck;

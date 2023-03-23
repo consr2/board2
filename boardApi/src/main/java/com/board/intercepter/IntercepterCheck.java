@@ -21,6 +21,8 @@ public class IntercepterCheck {
 				,new ArrayList<String>(Arrays.asList("ROLE_USER","ROLE_ADMIN"))));
 		this.list.add(new Pathinfo("/api/v1/question/like/**","POST"
 				,new ArrayList<String>(Arrays.asList("ROLE_USER","ROLE_ADMIN"))));
+		this.list.add(new Pathinfo("/api/v1/question/**","DELETE"
+				,new ArrayList<String>(Arrays.asList("ROLE_USER","ROLE_ADMIN"))));
 	}
 
 	//등록된 url 인지 체크

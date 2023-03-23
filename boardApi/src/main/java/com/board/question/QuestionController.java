@@ -1,5 +1,6 @@
 package com.board.question;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,5 +31,10 @@ public class QuestionController {
 	@PostMapping("/api/v1/question/like/{id}")
 	public String addLike(@PathVariable("id") Long id,  HttpServletRequest request) {
 		return questionService.addLike(id, request);
+	}
+	
+	@DeleteMapping("/api/v1/question/{id}")
+	public String deleteQuestion(@PathVariable("id") Long id, HttpServletRequest request) {
+		return questionService.deleteQuestion(id, request);
 	}
 }
