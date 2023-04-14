@@ -1,86 +1,97 @@
 <template>
   
-  <div class="black-bg" v-if="modal == true">
-    <div class="white-bg">
-      <h4>상세페이지</h4>
-      <p>상세 페이지 내용</p>
-      <p @click="modal = false">닫기</p>
-    </div>
+  <Header/>
 
-  </div>
+  <RouterView/>
 
-
-  <div class="nav">
-    <a v-for="i in navList" :key="i" href="#">{{ i }}</a>
-  </div>
-  
-  <div class="oneroom">
-    <div v-for="(oneroom,i) in onerooms" :key="i">
-      <img :src="oneroom.image" alt="roomIMG">
-      <h4 @click="modal = true">{{ oneroom.title }}</h4>
-      <p>{{ oneroom.content }}</p>
-      <p>{{ oneroom.price }}만원</p>
-    </div>
-  </div>
+  <Footer/>
 
 
 </template>
 
 <script>
-import data from './assets/oneroom';
+import Header from './components/Header.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
-  data(){
-    return{
-      navList : ['Home', 'about', 'color'],
-      modal : false,
-      onerooms : data,
-    }
-  },
-  methods:{
-    addclick(i){
-      this.oneroom[i].recomend += 1;
-    }
-  },
   components: {
-    
+    Footer,
+    Header,
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.nav{
-  padding: 15px;
-  border-radius: 5px;
-  background: rgb(203, 106, 42);
-}
-.nav a{
-  color: #dfd9c6;
-  padding: 5px;
-}
-.oneroom{
-  border: 1px;
-  border-color: black;
-  border-radius: 1px;
-}
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
 
-.black-bg{
-  width: 100%; height: 100%;
-  background: rgb(0, 0, 0, 0.5);
-  position: fixed; padding: 20px;
-}
-.white-bg{
-  width: 100%; background: white;
-  border-radius: 8px;
-  padding: 20px;
-}
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
 </style>

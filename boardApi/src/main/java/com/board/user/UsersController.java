@@ -1,11 +1,14 @@
 package com.board.user;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -21,6 +24,7 @@ public class UsersController {
 	
 	@GetMapping("/api/v1/login")
 	public String login(UsersForm usersForm, HttpServletRequest request) {
+		System.out.println("params : " + usersForm.toString());
 		return usersService.login(usersForm, request);
 	}
 	

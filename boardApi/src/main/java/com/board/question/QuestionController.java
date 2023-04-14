@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.board.result.Result;
@@ -24,7 +25,8 @@ public class QuestionController {
 	}
 	
 	@GetMapping("/api/v1/question")
-	public Result getQuestionList(int page, HttpServletRequest request) {
+	public Result getQuestionList(@RequestParam(value="page", defaultValue="0") int page
+		, HttpServletRequest request) {
 		return questionService.getQuestionList(page, request);
 	}
 	
